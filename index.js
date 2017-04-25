@@ -15,6 +15,7 @@ body {
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 var syncMessages = function () {
 	$.ajax({
@@ -26,7 +27,7 @@ var syncMessages = function () {
 
 			data.forEach(function (record) {
 				if (known.includes(record.uuid) == false) {
-					$('#gb-messages').prepend(\"<div data-gb-uuid=\\"" + record.uuid + "\\">" + record.message + "</div>")
+					$('#gb-messages').prepend(\"<div data-gb-uuid=\\"" + record.uuid + "\\">" + $.datepicker.formatDate('yy-mm-dd', new Date(record.createdOn)) + ": " + record.message + "</div>")
 				}
 			})
 		}
