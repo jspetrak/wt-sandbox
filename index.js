@@ -19,8 +19,22 @@ body {
 window.onload = function () {
 
 	$('#gb-save').click(function () {
-		console.log($('#gb-message').val());
-	});
+		var messageText = $('#gb-message').val()
+
+		if (messageText.length > 0) {
+			var payload = { message : messageText }
+
+			$.ajax({
+				url : '/messages',
+				type : 'POST',
+				contentType: "application/json; charset=utf-8",
+				dataType : 'json',
+				data : JSON.stringify(payload),
+				complete : function () { $('#gb-message').val('') },
+				failure : function (errorMessage) { console.log(errorMessage) }
+			})
+		}
+	})
 
 }
 </script>
