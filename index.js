@@ -16,6 +16,23 @@ body {
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+var syncMessages = function () {
+	$.ajax({
+		url : '/messages',
+		type : 'GET',
+		success : function (data) {
+			var known = []
+			$('#gb-messages').children().each(function () { known.push($(this).attr('data-gb-uuid')) })
+
+			data.forEach(function (record) {
+				if (known.includes(record.uuid) == false) {
+					$('#gb-messages').prepend(\"<div data-gb-uuid=\\"" + record.uuid + "\\">" + record.message + "</div>")
+				}
+			})
+		}
+	}).then(function () { setTimeout(syncMessages, 5000) })
+}
+
 window.onload = function () {
 
 	$('#gb-save').click(function () {
@@ -36,6 +53,8 @@ window.onload = function () {
 		}
 	})
 
+	syncMessages()
+
 }
 </script>
 </head>
@@ -45,6 +64,9 @@ window.onload = function () {
 <textarea id="gb-message"></textarea>
 <input type="submit" id="gb-save">
 </div>
+
+<div id="gb-messages">
+
 </body>
 </html>
 	`)
