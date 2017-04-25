@@ -15,9 +15,22 @@ body {
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+window.onload = function () {
+
+	$('#gb-save').click(function () {
+		console.log($('#gb-message').val());
+	});
+
+}
+</script>
 </head>
 <body>
 <h1>WebTask Example</h1>
+<div>
+<textarea id="gb-message"></textarea>
+<input type="submit" id="gb-save">
+</div>
 </body>
 </html>
 	`)
